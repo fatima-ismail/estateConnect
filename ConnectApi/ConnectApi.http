@@ -1,0 +1,6 @@
+@ConnectApi_HostAddress = http://localhost:5130
+
+GET {{ConnectApi_HostAddress}}/
+Accept: application/json
+
+###

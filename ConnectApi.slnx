@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="ConnectApi/connect-client/connect-client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="ConnectApi/ConnectApi.csproj" />
+</Solution>

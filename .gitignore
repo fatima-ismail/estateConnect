@@ -1,0 +1,17 @@
+.vs/
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/.vite/
+**/wwwroot/
+**/data-protection-keys/
+
+*.user
+*.suo
+*.log
+*.pdb
+
+.env
+.env.*
+!.env.example

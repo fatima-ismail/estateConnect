@@ -268,10 +268,10 @@ const Navbar = ({ activePage, setActivePage, setAccountSubTab }) => {
                   <div className="mb-3">
                     <div className="form-floating">
                       <input
-                        type="email"
+                        type="text"
                         id="loginEmail"
                         className={`form-control bg-light ${loginErrors.email ? 'is-invalid' : ''}`}
-                        placeholder="Email Address"
+                        placeholder="Email or Username"
                         value={loginData.email}
                         onChange={(e) => {
                           setLoginData({ ...loginData, email: e.target.value });
@@ -279,7 +279,7 @@ const Navbar = ({ activePage, setActivePage, setAccountSubTab }) => {
                           setAuthError('');
                         }}
                       />
-                      <label htmlFor="loginEmail">Email Address</label>
+                      <label htmlFor="loginEmail">Email or Username</label>
                     </div>
                     {loginErrors.email && <div className="text-danger small mt-1 ps-2">{loginErrors.email}</div>}
                   </div>

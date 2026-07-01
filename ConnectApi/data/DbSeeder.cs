@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Linq;
 using ConnectApi.models;
 using ConnectApi.services;
@@ -10,7 +11,11 @@ namespace ConnectApi.data
     {
         public static void Seed(AppDbContext context)
         {
-            context.Database.Migrate();
+            if (!TableExists(context, "Users"))
+            {
+                context.Database.Migrate();
+            }
+
             var passwordService = new PasswordService();
 
             var seedUsers = new[]
@@ -245,6 +250,37 @@ namespace ConnectApi.data
                     }
                 );
                 context.SaveChanges();
+            }
+        }
+
+        private static bool TableExists(AppDbContext context, string tableName)
+        {
+            var connection = context.Database.GetDbConnection();
+            var shouldClose = connection.State == ConnectionState.Closed;
+
+            if (shouldClose)
+            {
+                connection.Open();
+            }
+
+            try
+            {
+                using var command = connection.CreateCommand();
+                command.CommandText = "SELECT CASE WHEN OBJECT_ID(@tableName, 'U') IS NULL THEN 0 ELSE 1 END";
+
+                var parameter = command.CreateParameter();
+                parameter.ParameterName = "@tableName";
+                parameter.Value = tableName;
+                command.Parameters.Add(parameter);
+
+                return Convert.ToInt32(command.ExecuteScalar()) == 1;
+            }
+            finally
+            {
+                if (shouldClose)
+                {
+                    connection.Close();
+                }
             }
         }
     }
